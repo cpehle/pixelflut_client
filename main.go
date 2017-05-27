@@ -7,8 +7,8 @@ import "bytes"
 import "runtime"
 
 var ip = flag.String("ip", "127.0.0.1:8080", "The IP and port of the server to pixel flood")
-var x = flag.Int("x", 400, "x coordinate of rectangle to send")
-var y = flag.Int("y", 400, "x coordinate of rectangle to send")
+var x = flag.Int("x", 0, "x coordinate of rectangle to send")
+var y = flag.Int("y", 0, "x coordinate of rectangle to send")
 var width = flag.Int("w", 400, "width of rectangle to send")
 var height = flag.Int("h", 400, "height of rectangle to send")
 
@@ -44,20 +44,21 @@ func pixel_client(server string, x int, y int, r int, g int, b int, stride int, 
 
 func main() {
 	runtime.GOMAXPROCS(16)
-	server := *ip //"127.0.0.1:8080"
+//	server := *ip //"127.0.0.1:8080"
 	x_base := *x
 	y_base := *y
 	
-// server := "94.45.231.39:1234"
-// server := "94.45.234.31:1234"
+        server := "94.45.231.39:1234"
+   	// server := "94.45.234.31:1234"
 	flag.Parse()
 
 	c := make(chan int)
 	
-	for i := 0; i < 5; i++ {
-		for j := 0; j < 5; j++ {
+	for i := 0; i < 25; i++ {
+		for j := 0; j < 25; j++ {
 			stride := 50
-			go pixel_client(server, x_base+stride*i, y_base+stride*j, 255,105,180, stride, c)
+//						go pixel_client(server, x_base+stride*i, y_base+stride*j, 0,0,0, stride, c)
+		 	go pixel_client(server, x_base+stride*i, y_base+stride*j, 255,105,180, stride, c)
 		}
 	}
 
