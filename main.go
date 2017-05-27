@@ -44,12 +44,11 @@ func pixel_client(server string, x int, y int, r int, g int, b int, stride int, 
 
 func main() {
 	runtime.GOMAXPROCS(16)
-//	server := *ip //"127.0.0.1:8080"
 	x_base := *x
 	y_base := *y
 	
-        server := "94.45.231.39:1234"
-   	// server := "94.45.234.31:1234"
+        // server := "94.45.231.39:1234"
+   	server := "94.45.234.31:1234"
 	flag.Parse()
 
 	c := make(chan int)
@@ -57,8 +56,8 @@ func main() {
 	for i := 0; i < 25; i++ {
 		for j := 0; j < 25; j++ {
 			stride := 50
-//						go pixel_client(server, x_base+stride*i, y_base+stride*j, 0,0,0, stride, c)
-		 	go pixel_client(server, x_base+stride*i, y_base+stride*j, 255,105,180, stride, c)
+			go pixel_client(server, x_base+stride*i, y_base+stride*j, 0,0,0, stride, c)
+//		 	go pixel_client(server, x_base+stride*i, y_base+stride*j, 255,105,180, stride, c)
 		}
 	}
 
